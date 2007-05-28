@@ -1,11 +1,13 @@
 %define name    dante
 %define version 1.1.19
-%define release %mkrel 4
+%define release %mkrel 5
 %define major   0
 %define libname_orig                            lib%{name}
 %define libname                 %mklibname      %{name} %{major}
 %define libnamedev              %mklibname      %{name} %{major} -d
 %define libnamestaticdev        %mklibname      %{name} %{major} -d -s
+
+%define _requires_exceptions	GLIBC_PRIVATE
 
 Summary:        A free Socks v4/v5 client implementation
 Name:           %{name}
