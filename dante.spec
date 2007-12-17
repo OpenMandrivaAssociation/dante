@@ -16,7 +16,6 @@ Release:        %{release}
 License:        BSD-like
 Group:          Networking/Other
 URL:            http://www.inet.no/dante/
-Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Buildrequires:  perl-base pam-devel tcp_wrappers-devel
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}-sockd.init
