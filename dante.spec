@@ -1,6 +1,6 @@
 %define name    dante
 %define version 1.1.19
-%define release %mkrel 7
+%define release %mkrel 8
 %define major   0
 %define libname_orig                            lib%{name}
 %define libname                 %mklibname      %{name} %{major}
