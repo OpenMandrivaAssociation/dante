@@ -1,0 +1,18 @@
+--- dante-1.1.14/include/common.h.wait	2003-07-02 14:13:31.000000000 +0200
++++ dante-1.1.14/include/common.h	2004-07-02 11:38:24.993994965 +0200
+@@ -108,7 +108,15 @@
+ #ifdef SOCKS_DLIB_OSF
+ #define __DECC
+ #endif /* SOCKS_DLIB_OSF */
++#ifdef __GNUC__
++#undef __GNUC__
++#define __GNUC__ 3
+ #include <sys/wait.h>
++#undef __GNUC__
++#define __GNUC__ 0
++#else
++#include <sys/wait.h>
++#endif /* __GNUC__ */
+ #include <netinet/in.h>
+ #if HAVE_NETINET_IP_H
+ #include <netinet/ip.h>
