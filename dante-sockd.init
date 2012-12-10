@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+# sockd         This shell script takes care of starting and stopping
+#               the Dante server.
+#
+# chkconfig: 2345 65 35
+# description: sockd implements a socks v4/v5 proxy server
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -x /usr/sbin/sockd ] || exit 0
+
+SOCKD_CONF="/etc/sockd.conf"
+[ ! -f "$SOCKD_CONF" ] && exit 1
+
+SOCKD_EXTRA_OPTIONS=
+[ -f /etc/sysconfig/sockd ] && . /etc/sysconfig/sockd
+
+RETVAL=0
+
+start()
+{
+	gprintf "Starting sockd: "
+	daemon /usr/sbin/sockd $SOCKD_EXTRA_OPTIONS -D -f $SOCKD_CONF
+	RETVAL=$?
+	echo
+	[ "$RETVAL" = 0 ] && touch /var/lock/subsys/sockd
+}
+
+stop()
+{
+	gprintf "Shutting down sockd: "
+	killproc sockd
+	RETVAL=$?
+	echo
+	rm -f /var/lock/subsys/sockd
+}
+
+reload()
+{
+	gprintf "Reloading %s configuration:" "sockd"
+	[ -f /var/run/sockd.pid ] && /bin/kill -HUP `cat /var/run/sockd.pid`
+	RETVAL=$?
+	echo
+}
+
+
+# See how we were called.
+case "$1" in
+  start)
+	# Start daemons.
+	start
+	;;
+  stop)
+	# Stop daemons.
+	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  condrestart)
+	if [ -f /var/lock/subsys/sockd ]; then
+		stop
+		start
+	fi
+	;;
+  reload )
+	reload
+  ;;
+  status)
+	status sockd
+	;;
+  *)
+	gprintf "Usage: sockd {start|stop|restart|condrestart|reload|status}\n"
+	exit 1
+esac
+
+exit "$RETVAL"
