@@ -11,7 +11,7 @@ Version:	1.4.3
 Release:	1
 License:        BSD-like
 Group:          Networking/Other
-URL:            http://www.inet.no/dante/
+URL:            https://www.inet.no/dante/
 Buildrequires:  perl-base pam-devel tcp_wrappers-devel
 Source0:        http://www.inet.no/dante/files/%{name}-%{version}.tar.gz
 Source1:        %{name}-sockd.init
