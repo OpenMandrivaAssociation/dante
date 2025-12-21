@@ -12,6 +12,11 @@ Release:	1
 License:        BSD-like
 Group:          Networking/Other
 URL:            https://www.inet.no/dante/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 Buildrequires:  perl-base pam-devel tcp_wrappers-devel
 Source0:        http://www.inet.no/dante/files/%{name}-%{version}.tar.gz
 Source1:        %{name}-sockd.init
